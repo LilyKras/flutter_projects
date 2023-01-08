@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+
 import '../models/meal.dart';
 import '../dummy_data.dart';
 
 class MealDetailScreen extends StatelessWidget {
   static const routeName = '/meal-details';
+  Function addToFavorites;
+  Function isFavorite;
+
+  MealDetailScreen(this.addToFavorites, this.isFavorite);
 
   Widget buildSectionTitle(BuildContext ctx, String text) {
     return Container(
@@ -29,9 +34,8 @@ class MealDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final routeArgs =
-        ModalRoute.of(context)!.settings.arguments as Map<String, String>;
-    final String mealId = routeArgs['id'] as String;
+    final routeArgs = ModalRoute.of(context)!.settings.arguments as String;
+    final String mealId = routeArgs as String;
     final Meal selectedMeal = DUMMY_MEALS.firstWhere((meal) {
       return meal.id == mealId;
     });
@@ -68,7 +72,8 @@ class MealDetailScreen extends StatelessWidget {
                 itemBuilder: (ctx, index) => Column(
                   children: [
                     ListTile(
-                      leading: CircleAvatar(child: Text((index + 1).toString())),
+                      leading:
+                          CircleAvatar(child: Text((index + 1).toString())),
                       title: Text('${selectedMeal.steps[index]}'),
                     ),
                     Divider()
@@ -78,6 +83,10 @@ class MealDetailScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => addToFavorites(mealId),
+        child: !isFavorite(mealId) ? Icon(Icons.star_border) : Icon(Icons.star),
       ),
     );
   }

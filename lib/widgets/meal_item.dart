@@ -20,39 +20,42 @@ class MealItem extends StatelessWidget {
     required this.duration,
   });
 
-  String get complexityText{
-    if (complexity == Complexity.Simple){
+  String get complexityText {
+    if (complexity == Complexity.Simple) {
       return 'Simple';
     }
-    if (complexity == Complexity.Hard){
+    if (complexity == Complexity.Hard) {
       return 'Hard';
     }
-    if (complexity == Complexity.Challenging){
+    if (complexity == Complexity.Challenging) {
       return 'Challenging';
     }
     return 'Unknown';
   }
-    String get affordabilityText{
-    if (affordability == Affordability.Affordable){
+
+  String get affordabilityText {
+    if (affordability == Affordability.Affordable) {
       return 'Affordable';
     }
-    if (affordability == Affordability.Luxurious){
+    if (affordability == Affordability.Luxurious) {
       return 'Luxurious';
     }
-    if (affordability == Affordability.Pricey){
+    if (affordability == Affordability.Pricey) {
       return 'Pricey';
     }
     return 'Unknown';
   }
+
   void selectMeal(BuildContext ctx, String id) {
-    Navigator.of(ctx).pushNamed(
-      MealDetailScreen.routeName, arguments: {'id': id}
-    );
+    Navigator.of(ctx).pushNamed(MealDetailScreen.routeName, arguments: id);
   }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){selectMeal(context, id);},
+      onTap: () {
+        selectMeal(context, id);
+      },
       child: Card(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -96,22 +99,40 @@ class MealItem extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Row(children: [
-                      Icon(Icons.schedule,),
-                      SizedBox(width: 6,),
-                      Text('$duration min'),
-                    ],),
-                    Row(children: [
-                      Icon(Icons.work,),
-                      SizedBox(width: 6,),
-                      Text('$complexityText'),
-                    ],),
-                    Row(children: [
-                      Icon(Icons.attach_money_rounded,),
-                      SizedBox(width: 6,),
-                      Text('$affordabilityText'),
-                    ],),
-                  ],  
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.schedule,
+                        ),
+                        SizedBox(
+                          width: 6,
+                        ),
+                        Text('$duration min'),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.work,
+                        ),
+                        SizedBox(
+                          width: 6,
+                        ),
+                        Text('$complexityText'),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.attach_money_rounded,
+                        ),
+                        SizedBox(
+                          width: 6,
+                        ),
+                        Text('$affordabilityText'),
+                      ],
+                    ),
+                  ],
                 ),
               )
             ],
